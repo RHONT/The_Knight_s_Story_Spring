@@ -19,6 +19,7 @@
 # ------------------------------------------ Build Tool Specific Directories -------------------------------------------
 # Maven
 target
+test_ternary/
 
 # ----------------------------------------- IDE Internal Directories And Files -----------------------------------------
 # IntelliJ IDEA
