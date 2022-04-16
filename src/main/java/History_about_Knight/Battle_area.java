@@ -1,7 +1,7 @@
 
 package History_about_Knight;
 
-import com.sun.tools.javac.comp.Resolve;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
-
-import static javax.swing.plaf.synth.Region.LABEL;
 
 public class Battle_area {
 
@@ -24,28 +21,13 @@ public class Battle_area {
 
         Zombie second = context.getBean("Zombi", Zombie.class);
         second.setDefense(0, 20, 0, 30);
-        second.setParam_humanoid(
-                second.head,
-                second.torso,
-                second.hands,
-                second.leags,
-                second.attack);
+
         Zombie third = context.getBean("Zombi", Zombie.class);
         third.setDefense(20, 50, 50, 50);
-        third.setParam_humanoid(
-                second.head,
-                second.torso,
-                second.hands,
-                second.leags,
-                second.attack);
+
         Knight first = context.getBean("Knight", Knight.class);
         first.setDefense(30, 30, 30, 30);
-        first.setParam_humanoid(
-                second.head,
-                second.torso,
-                second.hands,
-                second.leags,
-                second.attack);
+
 //        Zombie third = new Zombie("Zombie.txt");
 //        third.setDefense(20, 50, 50, 50);
 //        Zombie outlaw_big = new Zombie("outlaw_big.txt");
@@ -807,24 +789,18 @@ class Humanoid implements Humanoid_ability {
 @Component("Zombi")
 @Scope("prototype")
 class Zombie extends Humanoid implements Humanoid_ability {
-    //String name = "Внезапный мертвец";
-
-
-    @Value("${zombie.head}")
-    int head;
-    @Value("${zombie.torso}")
-    int torso;
-    @Value("${zombie.leags}")
-    int leags;
-    @Value("${zombie.hands}")
-    int hands;
-    @Value("${zombie.attack}")
-    int attack;
 
     int money = new Random().nextInt(90) + 100;
 
-    Zombie() {
+    @Autowired
+    Zombie(ParamZombie paramZombie) {
         this.name = "Внезапный мертвец";
+        this.param_humanoid = new int[]{paramZombie.head,
+                paramZombie.torso,
+                paramZombie.hands,
+                paramZombie.leags,
+                paramZombie.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
     public void Attack(Humanoid a) {
@@ -867,19 +843,16 @@ class Zombie extends Humanoid implements Humanoid_ability {
 
 @Component("Knight")
 class Knight extends Humanoid implements Humanoid_ability {
-    @Value("${knight.head}")
-    int head;
-    @Value("${knight.torso}")
-    int torso;
-    @Value("${knight.leags}")
-    int leags;
-    @Value("${knight.hands}")
-    int hands;
-    @Value("${knight.attack}")
-    int attack;
 
-    Knight() {
-        this.name = "Cэр Томас";
+    @Autowired
+    Knight(ParamKnight paramKnight) {
+        this.name = "Внезапный мертвец";
+        this.param_humanoid = new int[]{paramKnight.head,
+                paramKnight.torso,
+                paramKnight.hands,
+                paramKnight.leags,
+                paramKnight.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
 
