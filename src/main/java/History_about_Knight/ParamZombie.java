@@ -9,12 +9,4 @@ import org.springframework.stereotype.Component;
 public class ParamZombie {
     @Value("${zombie}")
     int[] array;
-//    @Value("${zombie.torso}")
-//    int torso;
-//    @Value("${zombie.leags}")
-//    int leags;
-//    @Value("${zombie.hands}")
-//    int hands;
-//    @Value("${zombie.attack}")
-//    int attack;
 }
