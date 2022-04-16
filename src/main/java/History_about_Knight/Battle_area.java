@@ -47,65 +47,65 @@ public class Battle_area {
         Knight_In_The_Dark knight_in_the_dark_3 = context.getBean("Knight_In_The_Dark", Knight_In_The_Dark.class);
         knight_in_the_dark_3.setDefense(0, 100, 50, 50);
 
-//        read_file("[1].txt");
-//        System.out.println();
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//
-//        read_file("[1-1].txt");
-//        System.out.println();
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test(first, second, third);
-//
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        first.halt();    // привал
-//
-//        first.level_up();  // повышение уровня
-//
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//
-//        first.print_inv_and_money();
-//        market_place(first);
-//
-//        read_file("Thief_1.txt");
-//        first.bufer_string = history_stop.nextLine();
-//        first.thief_1 = (first.bufer_string.equals("1") ? true : false);
-//
-//        read_file("out_law_story.txt");
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test(first, outlaw_small, outlaw_big);
-//
-//        read_file("[2].txt");
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test(first, bear);
-//
-//        first.halt();    // привал
-//        first.level_up();  // повышение уровня
-//
-//        read_file("[2-1].txt");
-//        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
-//        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
-//        System.out.println(Arrays.toString(first.param_inventory));
-//        first.halt();    // привал
-//        first.level_up();
-//
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        read_file("[3].txt");
-//        history_stop.nextLine();
-//        read_file("[4].txt");
-//        history_stop.nextLine();
-//
-//        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2);
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        first.halt();    // привал
-//        first.level_up();
+        read_file("[1].txt");
+        System.out.println();
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+
+        read_file("[1-1].txt");
+        System.out.println();
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test(first, second, third);
+
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        first.halt();    // привал
+
+        first.level_up();  // повышение уровня
+
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+
+        first.print_inv_and_money();
+        market_place(first);
+
+        read_file("Thief_1.txt");
+        first.bufer_string = history_stop.nextLine();
+        first.thief_1 = (first.bufer_string.equals("1") ? true : false);
+
+        read_file("out_law_story.txt");
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test(first, outlaw_small, outlaw_big);
+
+        read_file("[2].txt");
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test(first, bear);
+
+        first.halt();    // привал
+        first.level_up();  // повышение уровня
+
+        read_file("[2-1].txt");
+        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
+        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
+        System.out.println(Arrays.toString(first.param_inventory));
+        first.halt();    // привал
+        first.level_up();
+
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        read_file("[3].txt");
+        history_stop.nextLine();
+        read_file("[4].txt");
+        history_stop.nextLine();
+
+        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2);
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        first.halt();    // привал
+        first.level_up();
 
         read_file("[5].txt");
         System.out.println("Нажмиет Enter для продолжения");
@@ -119,7 +119,7 @@ public class Battle_area {
         System.out.println();
         System.out.println("Нажмиет Enter для продолжения");
         history_stop.nextLine();
-        first.halt();
+        //first.halt();
         read_file("[7].txt");
         System.out.println("Нажмиет Enter для продолжения");
 
@@ -308,7 +308,7 @@ public class Battle_area {
     static void fight_test_vs_shadow(Humanoid first, Humanoid... enemy) {
         int round = 0;
         int sum_enemy = enemy.length;
-        System.out.println(sum_enemy);
+        //System.out.println(sum_enemy);
         ArrayList<Humanoid> list_participant = new ArrayList<>();
         list_participant.add(first);
 
@@ -321,20 +321,36 @@ public class Battle_area {
             System.out.println("*****" + "ROUND " + round + "**********************************************************************************************");
             print_battle_life_vs_shadow(list_participant);
             first.Attack(list_participant.get(1));
+
+            if (first.vortex == true) {
+                for (int i = 1; i < list_participant.size(); i++) {
+                    for (int j = 0; j < 4; j++) {
+                        list_participant.get(i).param_humanoid[j] -= 40;
+                    }
+                }
+                first.vortex = false;
+            }
+
+
             first.print_info_fight();
             for (int i = 1; i < list_participant.size(); i++) {
                 list_participant.get(i).Attack(first);
                 list_participant.get(i).print_info_fight();
             }
 
-            if (!list_participant.get(1).Humanoid_is_alife()) {
-                list_participant.get(1).money = new Random().nextInt(90) + 100;
-                System.out.println("Враг пал, вы собрали с трупа: " + list_participant.get(1).money + " золотых");
-                first.money += list_participant.get(1).money;
-                System.out.println();
-                list_participant.remove(1).reborn();
-                list_participant.remove(1);
+            for (int i = 1; i < list_participant.size(); i++) {         // куда я полез... Ввел ветер, теперь перемены!
+                if (!list_participant.get(i).Humanoid_is_alife()) {
+                    list_participant.get(i).money = new Random().nextInt(90) + 100;
+                    System.out.println("Враг пал, вы собрали с трупа: " + list_participant.get(i).money + " золотых");
+                    first.money += list_participant.get(i).money;
+                    System.out.println();
+                    list_participant.get(i).reborn();
+                    list_participant.remove(i);
+                    i--;
+                }
             }
+
+
             if (!first.Humanoid_is_alife()) {
                 System.out.println("Сэр Томас погиб. Его натура не выдержала вызова судьбы.");
                 System.exit(0);
