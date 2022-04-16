@@ -3,7 +3,6 @@ package History_about_Knight;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ public class Battle_area {
         Scanner history_stop = new Scanner(System.in);
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-
         Zombie second = context.getBean("Zombi", Zombie.class);
         second.setDefense(0, 20, 0, 30);
 
@@ -28,19 +26,20 @@ public class Battle_area {
         Knight first = context.getBean("Knight", Knight.class);
         first.setDefense(30, 30, 30, 30);
 
-//        Zombie third = new Zombie("Zombie.txt");
-//        third.setDefense(20, 50, 50, 50);
-//        Zombie outlaw_big = new Zombie("outlaw_big.txt");
-//        Zombie outlaw_small = new Zombie("outlaw_small.txt");
-//        Zombie bear = new Zombie("Bear.txt");
-//        Zombie outlaw_bridge_1 = new Zombie("outlaw_bridge.txt");
-//        outlaw_bridge_1.setDefense(0, 40, 10, 10);
-//        Zombie outlaw_bridge_2 = new Zombie("outlaw_bridge.txt");
-//        outlaw_bridge_2.setDefense(15, 25, 10, 0);
-//        Zombie outlaw_bridge_3 = new Zombie("outlaw_bridge.txt");
-//        outlaw_bridge_3.setDefense(0, 0, 30, 5);
-//        Zombie outlaw_bridge_4 = new Zombie("outlaw_bridge.txt");
-//        outlaw_bridge_4.setDefense(50, 10, 20, 20);
+        OutLowBig outlaw_big = context.getBean("OutLowBig", OutLowBig.class);
+        OutLowSmall outlaw_small = context.getBean("OutLowSmall", OutLowSmall.class);
+
+        Bear bear = context.getBean("Bear", Bear.class);
+
+        OutLawBridge outlaw_bridge_1 = context.getBean("OutLowBridge", OutLawBridge.class);
+        outlaw_bridge_1.setDefense(0, 40, 10, 10);
+        OutLawBridge outlaw_bridge_2 = context.getBean("OutLowBridge", OutLawBridge.class);
+        outlaw_bridge_2.setDefense(15, 25, 10, 0);
+        OutLawBridge outlaw_bridge_3 = context.getBean("OutLowBridge", OutLawBridge.class);
+        outlaw_bridge_3.setDefense(0, 0, 30, 5);
+        OutLawBridge outlaw_bridge_4 = context.getBean("OutLowBridge", OutLawBridge.class);
+        outlaw_bridge_4.setDefense(50, 10, 20, 20);
+
 //        Zombie knight_in_the_dark_1 = new Zombie("knight_in_the_dark.txt");
 //        knight_in_the_dark_1.setDefense(70, 70, 10, 10);
 //        Zombie knight_in_the_dark_2 = new Zombie("knight_in_the_dark.txt");
@@ -75,18 +74,18 @@ public class Battle_area {
         first.bufer_string = history_stop.nextLine();
         first.thief_1 = (first.bufer_string.equals("1") ? true : false);
 
-//        read_file("out_law_story.txt");
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test(first, outlaw_small, outlaw_big);
-//
-//        read_file("[2].txt");
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test(first, bear);
-//
-//        first.halt();    // привал
-//        first.level_up();  // повышение уровня
+        read_file("out_law_story.txt");
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test(first, outlaw_small, outlaw_big);
+
+        read_file("[2].txt");
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test(first, bear);
+
+        first.halt();    // привал
+        first.level_up();  // повышение уровня
 //
 //        read_file("[2-1].txt");
 //        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
@@ -384,7 +383,7 @@ public class Battle_area {
 
     }
 
-    static void fight_test(Humanoid first, Zombie... enemy) {
+    static void fight_test(Humanoid first, Humanoid... enemy) {
         int round = 0;
         int sum_enemy = enemy.length;
         //System.out.println(sum_enemy);
@@ -1011,6 +1010,231 @@ class Knight extends Humanoid implements Humanoid_ability {
 
     }
 }
+
+
+@Component("OutLowBig")
+@Scope("prototype")
+class OutLowBig extends Humanoid implements Humanoid_ability {
+
+    int money = new Random().nextInt(90) + 100;
+
+    @Autowired
+    OutLowBig(ParamOutLawBig paramOutLawBig) {
+        this.name = "Здоровяк";
+        this.param_humanoid = new int[]{paramOutLawBig.head,
+                paramOutLawBig.torso,
+                paramOutLawBig.hands,
+                paramOutLawBig.leags,
+                paramOutLawBig.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
+    public void Attack(Humanoid a) {
+
+        int multiplier;
+        int buf_rnd_critical = new Random().nextInt(101) + 1;
+        int rnd = new Random().nextInt(4);
+
+        if (i_am_fire) {
+            param_humanoid[4] = Math.round(copy_param_humanoid[4] / 2);
+            chance_to_attack = chance_to_attack_in_fire;
+            for (int i = 0; i <= 3; i++) {
+                param_humanoid[i] -= 10;
+            }
+
+            System.out.println(this.name + " Получил урон 30. И теперь теряет здоровье каждый ход (- 10).Урон снижен вдвое! Меткость его упала до " + this.chance_to_attack);
+        }
+
+        if (a.param_inventory[0] > 0) {
+            a.param_inventory[0] -= 1;
+            info_str_figth = "Удар пришелся по щиту! Состояние щита: " + a.param_inventory[0];
+        } else {
+            if (buf_rnd_critical < this.chance_to_attack) {
+
+                if (a.defense[rnd] > 0) {
+                    a.defense[rnd] -= Math.round(this.param_humanoid[4] * 0.33);
+                    a.param_humanoid[rnd] -= Math.round(this.param_humanoid[4] * 0.25);
+                    a.defense[rnd] = ((a.defense[rnd] < 0) ? 0 : (a.defense[rnd]));
+                    info_str_figth = "Ваш доспех снизил урон, вы получили " + Math.round(this.param_humanoid[4] * 0.25) + " Урона по " + Knight.Parts_of_body(rnd + 1) + " | " + " Доспех повредился на " + Math.round(this.param_humanoid[4] * 0.33);
+                } else {
+                    a.param_humanoid[rnd] -= this.param_humanoid[4];
+                    info_str_figth = "Вы  получили урон:" + this.param_humanoid[4];
+                }
+            } else {
+                info_str_figth = this.name + " промахнулся!";
+            }
+        }
+    }
+}
+
+
+@Component("OutLowSmall")
+@Scope("prototype")
+class OutLowSmall extends Humanoid implements Humanoid_ability {
+
+    int money = new Random().nextInt(90) + 100;
+
+    @Autowired
+    OutLowSmall(ParamOutLowSmall paramOutLowSmall) {
+        this.name = "Хиляк";
+        this.param_humanoid = new int[]{paramOutLowSmall.head,
+                paramOutLowSmall.torso,
+                paramOutLowSmall.hands,
+                paramOutLowSmall.leags,
+                paramOutLowSmall.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
+    public void Attack(Humanoid a) {
+
+        int multiplier;
+        int buf_rnd_critical = new Random().nextInt(101) + 1;
+        int rnd = new Random().nextInt(4);
+
+        if (i_am_fire) {
+            param_humanoid[4] = Math.round(copy_param_humanoid[4] / 2);
+            chance_to_attack = chance_to_attack_in_fire;
+            for (int i = 0; i <= 3; i++) {
+                param_humanoid[i] -= 10;
+            }
+
+            System.out.println(this.name + " Получил урон 30. И теперь теряет здоровье каждый ход (- 10).Урон снижен вдвое! Меткость его упала до " + this.chance_to_attack);
+        }
+
+        if (a.param_inventory[0] > 0) {
+            a.param_inventory[0] -= 1;
+            info_str_figth = "Удар пришелся по щиту! Состояние щита: " + a.param_inventory[0];
+        } else {
+            if (buf_rnd_critical < this.chance_to_attack) {
+
+                if (a.defense[rnd] > 0) {
+                    a.defense[rnd] -= Math.round(this.param_humanoid[4] * 0.33);
+                    a.param_humanoid[rnd] -= Math.round(this.param_humanoid[4] * 0.25);
+                    a.defense[rnd] = ((a.defense[rnd] < 0) ? 0 : (a.defense[rnd]));
+                    info_str_figth = "Ваш доспех снизил урон, вы получили " + Math.round(this.param_humanoid[4] * 0.25) + " Урона по " + Knight.Parts_of_body(rnd + 1) + " | " + " Доспех повредился на " + Math.round(this.param_humanoid[4] * 0.33);
+                } else {
+                    a.param_humanoid[rnd] -= this.param_humanoid[4];
+                    info_str_figth = "Вы  получили урон:" + this.param_humanoid[4];
+                }
+            } else {
+                info_str_figth = this.name + " промахнулся!";
+            }
+        }
+    }
+}
+
+
+@Component("OutLowBridge")
+@Scope("prototype")
+class OutLawBridge extends Humanoid implements Humanoid_ability {
+
+    int money = new Random().nextInt(90) + 100;
+
+    @Autowired
+    OutLawBridge(ParamOutLawBridge paramOutLawBridge) {
+        this.name = "Разбойник";
+        this.param_humanoid = new int[]{paramOutLawBridge.head,
+                paramOutLawBridge.torso,
+                paramOutLawBridge.hands,
+                paramOutLawBridge.leags,
+                paramOutLawBridge.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
+    public void Attack(Humanoid a) {
+
+        int multiplier;
+        int buf_rnd_critical = new Random().nextInt(101) + 1;
+        int rnd = new Random().nextInt(4);
+
+        if (i_am_fire) {
+            param_humanoid[4] = Math.round(copy_param_humanoid[4] / 2);
+            chance_to_attack = chance_to_attack_in_fire;
+            for (int i = 0; i <= 3; i++) {
+                param_humanoid[i] -= 10;
+            }
+
+            System.out.println(this.name + " Получил урон 30. И теперь теряет здоровье каждый ход (- 10).Урон снижен вдвое! Меткость его упала до " + this.chance_to_attack);
+        }
+
+        if (a.param_inventory[0] > 0) {
+            a.param_inventory[0] -= 1;
+            info_str_figth = "Удар пришелся по щиту! Состояние щита: " + a.param_inventory[0];
+        } else {
+            if (buf_rnd_critical < this.chance_to_attack) {
+
+                if (a.defense[rnd] > 0) {
+                    a.defense[rnd] -= Math.round(this.param_humanoid[4] * 0.33);
+                    a.param_humanoid[rnd] -= Math.round(this.param_humanoid[4] * 0.25);
+                    a.defense[rnd] = ((a.defense[rnd] < 0) ? 0 : (a.defense[rnd]));
+                    info_str_figth = "Ваш доспех снизил урон, вы получили " + Math.round(this.param_humanoid[4] * 0.25) + " Урона по " + Knight.Parts_of_body(rnd + 1) + " | " + " Доспех повредился на " + Math.round(this.param_humanoid[4] * 0.33);
+                } else {
+                    a.param_humanoid[rnd] -= this.param_humanoid[4];
+                    info_str_figth = "Вы  получили урон:" + this.param_humanoid[4];
+                }
+            } else {
+                info_str_figth = this.name + " промахнулся!";
+            }
+        }
+    }
+}
+
+
+@Component("Bear")
+@Scope("prototype")
+class Bear extends Humanoid implements Humanoid_ability {
+
+    int money = new Random().nextInt(90) + 100;
+
+    @Autowired
+    Bear(ParamOutLawBridge paramOutLawBridge) {
+        this.name = "Зомбо-Медведь";
+        this.param_humanoid = new int[]{paramOutLawBridge.head,
+                paramOutLawBridge.torso,
+                paramOutLawBridge.hands,
+                paramOutLawBridge.leags,
+                paramOutLawBridge.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
+    public void Attack(Humanoid a) {
+
+        int multiplier;
+        int buf_rnd_critical = new Random().nextInt(101) + 1;
+        int rnd = new Random().nextInt(4);
+
+        if (i_am_fire) {
+            param_humanoid[4] = Math.round(copy_param_humanoid[4] / 2);
+            chance_to_attack = chance_to_attack_in_fire;
+            for (int i = 0; i <= 3; i++) {
+                param_humanoid[i] -= 10;
+            }
+
+            System.out.println(this.name + " Получил урон 30. И теперь теряет здоровье каждый ход (- 10).Урон снижен вдвое! Меткость его упала до " + this.chance_to_attack);
+        }
+
+        if (a.param_inventory[0] > 0) {
+            a.param_inventory[0] -= 1;
+            info_str_figth = "Удар пришелся по щиту! Состояние щита: " + a.param_inventory[0];
+        } else {
+            if (buf_rnd_critical < this.chance_to_attack) {
+
+                if (a.defense[rnd] > 0) {
+                    a.defense[rnd] -= Math.round(this.param_humanoid[4] * 0.33);
+                    a.param_humanoid[rnd] -= Math.round(this.param_humanoid[4] * 0.25);
+                    a.defense[rnd] = ((a.defense[rnd] < 0) ? 0 : (a.defense[rnd]));
+                    info_str_figth = "Ваш доспех снизил урон, вы получили " + Math.round(this.param_humanoid[4] * 0.25) + " Урона по " + Knight.Parts_of_body(rnd + 1) + " | " + " Доспех повредился на " + Math.round(this.param_humanoid[4] * 0.33);
+                } else {
+                    a.param_humanoid[rnd] -= this.param_humanoid[4];
+                    info_str_figth = "Вы  получили урон:" + this.param_humanoid[4];
+                }
+            } else {
+                info_str_figth = this.name + " промахнулся!";
+            }
+        }
+    }
+}
+
 
 interface Humanoid_ability {
 

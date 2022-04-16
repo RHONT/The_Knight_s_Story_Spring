@@ -6,8 +6,8 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:property-placeholder location="myApp.properties"/>
-    <context:component-scan base-package="History_about_Knight"/>
+    <context:property-placeholder location="myApp.properties" file-encoding="UTF-8"/>
+    <context:component-scan base-package="History_about_Knight,History_about_Knight.param_unit"/>
 
 
 </beans>
