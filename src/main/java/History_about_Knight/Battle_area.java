@@ -3,6 +3,7 @@ package History_about_Knight;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.*;
 public class Battle_area {
 
     public static void main(String[] args) throws InterruptedException {
+
         Scanner history_stop = new Scanner(System.in);
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
