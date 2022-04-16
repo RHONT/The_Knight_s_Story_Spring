@@ -1,6 +1,12 @@
 
 package History_about_Knight;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,30 +18,34 @@ public class Battle_area {
 
     public static void main(String[] args) throws InterruptedException {
         Scanner history_stop = new Scanner(System.in);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        Zombie second = new Zombie("Zombie.txt");
+
+        Zombie second = context.getBean("Zombi", Zombie.class);
         second.setDefense(0, 20, 0, 30);
-        Knight first = new Knight("Knight.txt");
-        first.setDefense(30, 30, 30, 30);
-        Zombie third = new Zombie("Zombie.txt");
+        Zombie third = context.getBean("Zombi", Zombie.class);
         third.setDefense(20, 50, 50, 50);
-        Zombie outlaw_big = new Zombie("outlaw_big.txt");
-        Zombie outlaw_small = new Zombie("outlaw_small.txt");
-        Zombie bear = new Zombie("Bear.txt");
-        Zombie outlaw_bridge_1 = new Zombie("outlaw_bridge.txt");
-        outlaw_bridge_1.setDefense(0, 40, 10, 10);
-        Zombie outlaw_bridge_2 = new Zombie("outlaw_bridge.txt");
-        outlaw_bridge_2.setDefense(15, 25, 10, 0);
-        Zombie outlaw_bridge_3 = new Zombie("outlaw_bridge.txt");
-        outlaw_bridge_3.setDefense(0, 0, 30, 5);
-        Zombie outlaw_bridge_4 = new Zombie("outlaw_bridge.txt");
-        outlaw_bridge_4.setDefense(50, 10, 20, 20);
-        Zombie knight_in_the_dark_1 = new Zombie("knight_in_the_dark.txt");
-        knight_in_the_dark_1.setDefense(70, 70, 10, 10);
-        Zombie knight_in_the_dark_2 = new Zombie("knight_in_the_dark.txt");
-        knight_in_the_dark_2.setDefense(50, 100, 30, 10);
-        Zombie knight_in_the_dark_3 = new Zombie("knight_in_the_dark.txt");
-        knight_in_the_dark_3.setDefense(0, 100, 50, 50);
+        Knight first = context.getBean("Knight", Knight.class);
+        first.setDefense(30, 30, 30, 30);
+//        Zombie third = new Zombie("Zombie.txt");
+//        third.setDefense(20, 50, 50, 50);
+//        Zombie outlaw_big = new Zombie("outlaw_big.txt");
+//        Zombie outlaw_small = new Zombie("outlaw_small.txt");
+//        Zombie bear = new Zombie("Bear.txt");
+//        Zombie outlaw_bridge_1 = new Zombie("outlaw_bridge.txt");
+//        outlaw_bridge_1.setDefense(0, 40, 10, 10);
+//        Zombie outlaw_bridge_2 = new Zombie("outlaw_bridge.txt");
+//        outlaw_bridge_2.setDefense(15, 25, 10, 0);
+//        Zombie outlaw_bridge_3 = new Zombie("outlaw_bridge.txt");
+//        outlaw_bridge_3.setDefense(0, 0, 30, 5);
+//        Zombie outlaw_bridge_4 = new Zombie("outlaw_bridge.txt");
+//        outlaw_bridge_4.setDefense(50, 10, 20, 20);
+//        Zombie knight_in_the_dark_1 = new Zombie("knight_in_the_dark.txt");
+//        knight_in_the_dark_1.setDefense(70, 70, 10, 10);
+//        Zombie knight_in_the_dark_2 = new Zombie("knight_in_the_dark.txt");
+//        knight_in_the_dark_2.setDefense(50, 100, 30, 10);
+//        Zombie knight_in_the_dark_3 = new Zombie("knight_in_the_dark.txt");
+//        knight_in_the_dark_3.setDefense(0, 100, 50, 50);
 
         read_file("[1].txt");
         System.out.println();
@@ -64,54 +74,54 @@ public class Battle_area {
         first.bufer_string = history_stop.nextLine();
         first.thief_1 = (first.bufer_string.equals("1") ? true : false);
 
-        read_file("out_law_story.txt");
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test(first, outlaw_small, outlaw_big);
-
-        read_file("[2].txt");
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test(first, bear);
-
-        first.halt();    // привал
-        first.level_up();  // повышение уровня
-
-        read_file("[2-1].txt");
-        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
-        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
-        System.out.println(Arrays.toString(first.param_inventory));
-        first.halt();    // привал
-        first.level_up();
-
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        read_file("[3].txt");
-        history_stop.nextLine();
-        read_file("[4].txt");
-        history_stop.nextLine();
-
-        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2);
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        first.halt();    // привал
-        first.level_up();
-
-        read_file("[5].txt");
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2, knight_in_the_dark_3);
-        first.halt();
-        first.level_up();
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        read_file("[6].txt");
-        System.out.println();
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        first.halt();
-        read_file("[7].txt");
-        System.out.println("Нажмиет Enter для продолжения");
+//        read_file("out_law_story.txt");
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test(first, outlaw_small, outlaw_big);
+//
+//        read_file("[2].txt");
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test(first, bear);
+//
+//        first.halt();    // привал
+//        first.level_up();  // повышение уровня
+//
+//        read_file("[2-1].txt");
+//        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
+//        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
+//        System.out.println(Arrays.toString(first.param_inventory));
+//        first.halt();    // привал
+//        first.level_up();
+//
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        read_file("[3].txt");
+//        history_stop.nextLine();
+//        read_file("[4].txt");
+//        history_stop.nextLine();
+//
+//        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2);
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        first.halt();    // привал
+//        first.level_up();
+//
+//        read_file("[5].txt");
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2, knight_in_the_dark_3);
+//        first.halt();
+//        first.level_up();
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        read_file("[6].txt");
+//        System.out.println();
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        first.halt();
+//        read_file("[7].txt");
+//        System.out.println("Нажмиет Enter для продолжения");
 
     }
 
@@ -473,6 +483,7 @@ public class Battle_area {
 
 }
 
+@Component
 class Humanoid implements Humanoid_ability {
     boolean vortex = false;  // супео способность волна ветро, бьет по всем врагам.
 
@@ -497,32 +508,37 @@ class Humanoid implements Humanoid_ability {
     int money = new Random().nextInt(150) + 75;
     //int burn_damage=Math.round(param_humanoid[4]/2);
 
+    void setParam_humanoid(int a, int b, int c, int d, int e) {
+        param_humanoid = new int[]{a, b, c, d, e};
+        copy_param_defense = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
 
-    Humanoid(String str_file) {
-//        String path = new File(str_file).getAbsolutePath(); // показывает где лежит файл(нужно понять как переназначить корневую папку.)
-//        System.out.println(path);
-        File file_humanoid = new File(str_file);
 
-        try {
-            Scanner str_scan = new Scanner(file_humanoid);
-            this.name = str_scan.nextLine();
-            this.param_humanoid[0] = Integer.parseInt(str_scan.nextLine());
-            this.param_humanoid[1] = Integer.parseInt(str_scan.nextLine());
-            this.param_humanoid[2] = Integer.parseInt(str_scan.nextLine());
-            this.param_humanoid[3] = Integer.parseInt(str_scan.nextLine());
-            this.param_humanoid[4] = Integer.parseInt(str_scan.nextLine());
-            this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
-            str_scan.close();
-        } catch (IOException | NoSuchElementException | NumberFormatException er) {
-            this.name = "No name";
-            this.param_humanoid[0] = 20;
-            this.param_humanoid[1] = 20;
-            this.param_humanoid[2] = 20;
-            this.param_humanoid[3] = 20;
-            this.param_humanoid[4] = 1;
-            this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 5);
-            System.out.println("Default:");
-        }
+    Humanoid() {
+////        String path = new File(str_file).getAbsolutePath(); // показывает где лежит файл(нужно понять как переназначить корневую папку.)
+////        System.out.println(path);
+//        File file_humanoid = new File(str_file);
+//
+//        try {
+//            Scanner str_scan = new Scanner(file_humanoid);
+//            this.name = str_scan.nextLine();
+//            this.param_humanoid[0] = Integer.parseInt(str_scan.nextLine());
+//            this.param_humanoid[1] = Integer.parseInt(str_scan.nextLine());
+//            this.param_humanoid[2] = Integer.parseInt(str_scan.nextLine());
+//            this.param_humanoid[3] = Integer.parseInt(str_scan.nextLine());
+//            this.param_humanoid[4] = Integer.parseInt(str_scan.nextLine());
+//            this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
+//            str_scan.close();
+//        } catch (IOException | NoSuchElementException | NumberFormatException er) {
+//            this.name = "No name";
+//            this.param_humanoid[0] = 20;
+//            this.param_humanoid[1] = 20;
+//            this.param_humanoid[2] = 20;
+//            this.param_humanoid[3] = 20;
+//            this.param_humanoid[4] = 1;
+//            this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 5);
+//            System.out.println("Default:");
+//        }
     }
 
     static String Parts_of_body(int a) {
@@ -704,6 +720,7 @@ class Humanoid implements Humanoid_ability {
         copy_param_defense = Arrays.copyOfRange(defense, 0, defense.length);
     }
 
+
     boolean Humanoid_is_alife() {
         boolean b = false;
         for (int a : param_humanoid) {
@@ -766,11 +783,34 @@ class Humanoid implements Humanoid_ability {
     }
 }
 
+@Component("Zombi")
+@Scope("prototype")
 class Zombie extends Humanoid implements Humanoid_ability {
+    //String name = "Внезапный мертвец";
+
+    @Value("${zombie.head}")
+    int head;
+    @Value("${zombie.torso}")
+    int torso;
+    @Value("${zombie.leags}")
+    int leags;
+    @Value("${zombie.hands}")
+    int hands;
+    @Value("${zombie.attack}")
+    int attack;
+
     int money = new Random().nextInt(90) + 100;
 
-    Zombie(String str_file) {
-        super(str_file);
+    @Autowired
+    Zombie() {
+
+//        this.name="Внезапный мертвец";
+//        this.param_humanoid[0]=head;
+//        this.param_humanoid[1]=torso;
+//        this.param_humanoid[2]=hands;
+//        this.param_humanoid[3]=leags;
+//        this.param_humanoid[4]=attack;
+//        this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
     }
 
     public void Attack(Humanoid a) {
@@ -811,11 +851,31 @@ class Zombie extends Humanoid implements Humanoid_ability {
     }
 }
 
+@Component("Knight")
 class Knight extends Humanoid implements Humanoid_ability {
 
-    Knight(String str_file) {
-        super(str_file);
+    @Value("${knight.head}")
+    int head;
+    @Value("${knight.torso}")
+    int torso;
+    @Value("${knight.leags}")
+    int leags;
+    @Value("${knight.hands}")
+    int hands;
+    @Value("${knight.attack}")
+    int attack;
+
+    @Autowired
+    Knight() {
+        this.name = "Сэр Томас!";
+        this.param_humanoid[0] = head;
+        this.param_humanoid[1] = torso;
+        this.param_humanoid[2] = hands;
+        this.param_humanoid[3] = leags;
+        this.param_humanoid[4] = attack;
+        this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
     }
+
 
     int Missiles_attack(int a) {
         int buf = a;
