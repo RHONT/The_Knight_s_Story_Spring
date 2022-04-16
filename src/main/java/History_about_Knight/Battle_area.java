@@ -1,6 +1,7 @@
 
 package History_about_Knight;
 
+import com.sun.tools.javac.comp.Resolve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -23,10 +24,28 @@ public class Battle_area {
 
         Zombie second = context.getBean("Zombi", Zombie.class);
         second.setDefense(0, 20, 0, 30);
+        second.setParam_humanoid(
+                second.head,
+                second.torso,
+                second.hands,
+                second.leags,
+                second.attack);
         Zombie third = context.getBean("Zombi", Zombie.class);
         third.setDefense(20, 50, 50, 50);
+        third.setParam_humanoid(
+                second.head,
+                second.torso,
+                second.hands,
+                second.leags,
+                second.attack);
         Knight first = context.getBean("Knight", Knight.class);
         first.setDefense(30, 30, 30, 30);
+        first.setParam_humanoid(
+                second.head,
+                second.torso,
+                second.hands,
+                second.leags,
+                second.attack);
 //        Zombie third = new Zombie("Zombie.txt");
 //        third.setDefense(20, 50, 50, 50);
 //        Zombie outlaw_big = new Zombie("outlaw_big.txt");
@@ -386,7 +405,7 @@ public class Battle_area {
     static void fight_test(Humanoid first, Zombie... enemy) {
         int round = 0;
         int sum_enemy = enemy.length;
-        System.out.println(sum_enemy);
+        //System.out.println(sum_enemy);
         ArrayList<Humanoid> list_participant = new ArrayList<>();
         list_participant.add(first);
 
@@ -508,10 +527,7 @@ class Humanoid implements Humanoid_ability {
     int money = new Random().nextInt(150) + 75;
     //int burn_damage=Math.round(param_humanoid[4]/2);
 
-    void setParam_humanoid(int a, int b, int c, int d, int e) {
-        param_humanoid = new int[]{a, b, c, d, e};
-        copy_param_defense = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
-    }
+
 
 
     Humanoid() {
@@ -715,6 +731,11 @@ class Humanoid implements Humanoid_ability {
         System.out.println(info_str);
     }
 
+    void setParam_humanoid(int a, int b, int c, int d, int e) {
+        this.param_humanoid = new int[]{a, b, c, d, e};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
     void setDefense(int a, int b, int c, int d) {
         defense = new int[]{a, b, c, d};
         copy_param_defense = Arrays.copyOfRange(defense, 0, defense.length);
@@ -788,6 +809,7 @@ class Humanoid implements Humanoid_ability {
 class Zombie extends Humanoid implements Humanoid_ability {
     //String name = "Внезапный мертвец";
 
+
     @Value("${zombie.head}")
     int head;
     @Value("${zombie.torso}")
@@ -801,16 +823,8 @@ class Zombie extends Humanoid implements Humanoid_ability {
 
     int money = new Random().nextInt(90) + 100;
 
-    @Autowired
     Zombie() {
-
-//        this.name="Внезапный мертвец";
-//        this.param_humanoid[0]=head;
-//        this.param_humanoid[1]=torso;
-//        this.param_humanoid[2]=hands;
-//        this.param_humanoid[3]=leags;
-//        this.param_humanoid[4]=attack;
-//        this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
+        this.name = "Внезапный мертвец";
     }
 
     public void Attack(Humanoid a) {
@@ -853,7 +867,6 @@ class Zombie extends Humanoid implements Humanoid_ability {
 
 @Component("Knight")
 class Knight extends Humanoid implements Humanoid_ability {
-
     @Value("${knight.head}")
     int head;
     @Value("${knight.torso}")
@@ -865,15 +878,8 @@ class Knight extends Humanoid implements Humanoid_ability {
     @Value("${knight.attack}")
     int attack;
 
-    @Autowired
     Knight() {
-        this.name = "Сэр Томас!";
-        this.param_humanoid[0] = head;
-        this.param_humanoid[1] = torso;
-        this.param_humanoid[2] = hands;
-        this.param_humanoid[3] = leags;
-        this.param_humanoid[4] = attack;
-        this.copy_param_humanoid = Arrays.copyOfRange(this.param_humanoid, 0, 8);
+        this.name = "Cэр Томас";
     }
 
 
