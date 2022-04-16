@@ -40,52 +40,52 @@ public class Battle_area {
         OutLawBridge outlaw_bridge_4 = context.getBean("OutLowBridge", OutLawBridge.class);
         outlaw_bridge_4.setDefense(50, 10, 20, 20);
 
-//        Zombie knight_in_the_dark_1 = new Zombie("knight_in_the_dark.txt");
-//        knight_in_the_dark_1.setDefense(70, 70, 10, 10);
-//        Zombie knight_in_the_dark_2 = new Zombie("knight_in_the_dark.txt");
-//        knight_in_the_dark_2.setDefense(50, 100, 30, 10);
-//        Zombie knight_in_the_dark_3 = new Zombie("knight_in_the_dark.txt");
-//        knight_in_the_dark_3.setDefense(0, 100, 50, 50);
+        Knight_In_The_Dark knight_in_the_dark_1 = context.getBean("Knight_In_The_Dark", Knight_In_The_Dark.class);
+        knight_in_the_dark_1.setDefense(70, 70, 10, 10);
+        Knight_In_The_Dark knight_in_the_dark_2 = context.getBean("Knight_In_The_Dark", Knight_In_The_Dark.class);
+        knight_in_the_dark_2.setDefense(50, 100, 30, 10);
+        Knight_In_The_Dark knight_in_the_dark_3 = context.getBean("Knight_In_The_Dark", Knight_In_The_Dark.class);
+        knight_in_the_dark_3.setDefense(0, 100, 50, 50);
 
-        read_file("[1].txt");
-        System.out.println();
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-
-        read_file("[1-1].txt");
-        System.out.println();
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test(first, second, third);
-
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        first.halt();    // привал
-
-        first.level_up();  // повышение уровня
-
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-
-        first.print_inv_and_money();
-        market_place(first);
-
-        read_file("Thief_1.txt");
-        first.bufer_string = history_stop.nextLine();
-        first.thief_1 = (first.bufer_string.equals("1") ? true : false);
-
-        read_file("out_law_story.txt");
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test(first, outlaw_small, outlaw_big);
-
-        read_file("[2].txt");
-        System.out.println("Нажмиет Enter для продолжения");
-        history_stop.nextLine();
-        fight_test(first, bear);
-
-        first.halt();    // привал
-        first.level_up();  // повышение уровня
+//        read_file("[1].txt");
+//        System.out.println();
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//
+//        read_file("[1-1].txt");
+//        System.out.println();
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test(first, second, third);
+//
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        first.halt();    // привал
+//
+//        first.level_up();  // повышение уровня
+//
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//
+//        first.print_inv_and_money();
+//        market_place(first);
+//
+//        read_file("Thief_1.txt");
+//        first.bufer_string = history_stop.nextLine();
+//        first.thief_1 = (first.bufer_string.equals("1") ? true : false);
+//
+//        read_file("out_law_story.txt");
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test(first, outlaw_small, outlaw_big);
+//
+//        read_file("[2].txt");
+//        System.out.println("Нажмиет Enter для продолжения");
+//        history_stop.nextLine();
+//        fight_test(first, bear);
+//
+//        first.halt();    // привал
+//        first.level_up();  // повышение уровня
 //
 //        read_file("[2-1].txt");
 //        bridge(first, outlaw_bridge_1, outlaw_bridge_2, outlaw_bridge_3, outlaw_bridge_4);
@@ -106,22 +106,22 @@ public class Battle_area {
 //        history_stop.nextLine();
 //        first.halt();    // привал
 //        first.level_up();
-//
-//        read_file("[5].txt");
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2, knight_in_the_dark_3);
-//        first.halt();
-//        first.level_up();
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        read_file("[6].txt");
-//        System.out.println();
-//        System.out.println("Нажмиет Enter для продолжения");
-//        history_stop.nextLine();
-//        first.halt();
-//        read_file("[7].txt");
-//        System.out.println("Нажмиет Enter для продолжения");
+
+        read_file("[5].txt");
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        fight_test_vs_shadow(first, knight_in_the_dark_1, knight_in_the_dark_2, knight_in_the_dark_3);
+        first.halt();
+        first.level_up();
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        read_file("[6].txt");
+        System.out.println();
+        System.out.println("Нажмиет Enter для продолжения");
+        history_stop.nextLine();
+        first.halt();
+        read_file("[7].txt");
+        System.out.println("Нажмиет Enter для продолжения");
 
     }
 
@@ -305,7 +305,7 @@ public class Battle_area {
         }
     }
 
-    static void fight_test_vs_shadow(Humanoid first, Zombie... enemy) {
+    static void fight_test_vs_shadow(Humanoid first, Humanoid... enemy) {
         int round = 0;
         int sum_enemy = enemy.length;
         System.out.println(sum_enemy);
@@ -437,7 +437,7 @@ public class Battle_area {
         first.down_health();  // Зелье бодрит, и завышает временно характеристики здоровья. После боя, все приходит в норму.
     }
 
-    static void bridge(Humanoid buf, Zombie... enemy) {
+    static void bridge(Humanoid buf, Humanoid... enemy) {
 
         while (!buf.event_on_bridge) {
             String for_market_scanner;
@@ -1235,6 +1235,61 @@ class Bear extends Humanoid implements Humanoid_ability {
     }
 }
 
+
+@Component("Knight_In_The_Dark")
+@Scope("prototype")
+class Knight_In_The_Dark extends Humanoid implements Humanoid_ability {
+
+    int money = new Random().nextInt(90) + 100;
+
+    @Autowired
+    Knight_In_The_Dark(ParamKnight_In_The_Dark paramKnight_in_the_dark) {
+        this.name = "Скелет во тьме";
+        this.param_humanoid = new int[]{paramKnight_in_the_dark.head,
+                paramKnight_in_the_dark.torso,
+                paramKnight_in_the_dark.hands,
+                paramKnight_in_the_dark.leags,
+                paramKnight_in_the_dark.attack};
+        this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
+    }
+
+    public void Attack(Humanoid a) {
+
+        int multiplier;
+        int buf_rnd_critical = new Random().nextInt(101) + 1;
+        int rnd = new Random().nextInt(4);
+
+        if (i_am_fire) {
+            param_humanoid[4] = Math.round(copy_param_humanoid[4] / 2);
+            chance_to_attack = chance_to_attack_in_fire;
+            for (int i = 0; i <= 3; i++) {
+                param_humanoid[i] -= 10;
+            }
+
+            System.out.println(this.name + " Получил урон 30. И теперь теряет здоровье каждый ход (- 10).Урон снижен вдвое! Меткость его упала до " + this.chance_to_attack);
+        }
+
+        if (a.param_inventory[0] > 0) {
+            a.param_inventory[0] -= 1;
+            info_str_figth = "Удар пришелся по щиту! Состояние щита: " + a.param_inventory[0];
+        } else {
+            if (buf_rnd_critical < this.chance_to_attack) {
+
+                if (a.defense[rnd] > 0) {
+                    a.defense[rnd] -= Math.round(this.param_humanoid[4] * 0.33);
+                    a.param_humanoid[rnd] -= Math.round(this.param_humanoid[4] * 0.25);
+                    a.defense[rnd] = ((a.defense[rnd] < 0) ? 0 : (a.defense[rnd]));
+                    info_str_figth = "Ваш доспех снизил урон, вы получили " + Math.round(this.param_humanoid[4] * 0.25) + " Урона по " + Knight.Parts_of_body(rnd + 1) + " | " + " Доспех повредился на " + Math.round(this.param_humanoid[4] * 0.33);
+                } else {
+                    a.param_humanoid[rnd] -= this.param_humanoid[4];
+                    info_str_figth = "Вы  получили урон:" + this.param_humanoid[4];
+                }
+            } else {
+                info_str_figth = this.name + " промахнулся!";
+            }
+        }
+    }
+}
 
 interface Humanoid_ability {
 
