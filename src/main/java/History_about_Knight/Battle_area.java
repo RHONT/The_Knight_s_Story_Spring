@@ -812,11 +812,7 @@ class Zombie extends Humanoid implements Humanoid_ability {
     @Autowired
     Zombie(ParamZombie paramZombie) {
         this.name = "Внезапный мертвец";
-        this.param_humanoid = new int[]{paramZombie.head,
-                paramZombie.torso,
-                paramZombie.hands,
-                paramZombie.leags,
-                paramZombie.attack};
+        this.param_humanoid = paramZombie.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -863,12 +859,8 @@ class Knight extends Humanoid implements Humanoid_ability {
 
     @Autowired
     Knight(ParamKnight paramKnight) {
-        this.name = "Внезапный мертвец";
-        this.param_humanoid = new int[]{paramKnight.head,
-                paramKnight.torso,
-                paramKnight.hands,
-                paramKnight.leags,
-                paramKnight.attack};
+        this.name = "Сэр Томас";
+        this.param_humanoid = paramKnight.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -1039,11 +1031,7 @@ class OutLowBig extends Humanoid implements Humanoid_ability {
     @Autowired
     OutLowBig(ParamOutLawBig paramOutLawBig) {
         this.name = "Здоровяк";
-        this.param_humanoid = new int[]{paramOutLawBig.head,
-                paramOutLawBig.torso,
-                paramOutLawBig.hands,
-                paramOutLawBig.leags,
-                paramOutLawBig.attack};
+        this.param_humanoid = paramOutLawBig.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -1095,11 +1083,7 @@ class OutLowSmall extends Humanoid implements Humanoid_ability {
     @Autowired
     OutLowSmall(ParamOutLowSmall paramOutLowSmall) {
         this.name = "Хиляк";
-        this.param_humanoid = new int[]{paramOutLowSmall.head,
-                paramOutLowSmall.torso,
-                paramOutLowSmall.hands,
-                paramOutLowSmall.leags,
-                paramOutLowSmall.attack};
+        this.param_humanoid = paramOutLowSmall.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -1151,11 +1135,7 @@ class OutLawBridge extends Humanoid implements Humanoid_ability {
     @Autowired
     OutLawBridge(ParamOutLawBridge paramOutLawBridge) {
         this.name = "Разбойник";
-        this.param_humanoid = new int[]{paramOutLawBridge.head,
-                paramOutLawBridge.torso,
-                paramOutLawBridge.hands,
-                paramOutLawBridge.leags,
-                paramOutLawBridge.attack};
+        this.param_humanoid = paramOutLawBridge.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -1205,13 +1185,9 @@ class Bear extends Humanoid implements Humanoid_ability {
     int money = new Random().nextInt(90) + 100;
 
     @Autowired
-    Bear(ParamOutLawBridge paramOutLawBridge) {
+    Bear(ParamBear paramBear) {
         this.name = "Зомбо-Медведь";
-        this.param_humanoid = new int[]{paramOutLawBridge.head,
-                paramOutLawBridge.torso,
-                paramOutLawBridge.hands,
-                paramOutLawBridge.leags,
-                paramOutLawBridge.attack};
+        this.param_humanoid = paramBear.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 
@@ -1263,11 +1239,7 @@ class Knight_In_The_Dark extends Humanoid implements Humanoid_ability {
     @Autowired
     Knight_In_The_Dark(ParamKnight_In_The_Dark paramKnight_in_the_dark) {
         this.name = "Скелет во тьме";
-        this.param_humanoid = new int[]{paramKnight_in_the_dark.head,
-                paramKnight_in_the_dark.torso,
-                paramKnight_in_the_dark.hands,
-                paramKnight_in_the_dark.leags,
-                paramKnight_in_the_dark.attack};
+        this.param_humanoid = paramKnight_in_the_dark.array;
         this.copy_param_humanoid = Arrays.copyOfRange(param_humanoid, 0, param_humanoid.length);
     }
 

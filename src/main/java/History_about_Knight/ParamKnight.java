@@ -8,14 +8,7 @@ import org.springframework.stereotype.Component;
 @Component("ParamKnight")
 @Scope("prototype")
 public class ParamKnight {
-    @Value("${knight.head}")
-    int head;
-    @Value("${knight.torso}")
-    int torso;
-    @Value("${knight.leags}")
-    int leags;
-    @Value("${knight.hands}")
-    int hands;
-    @Value("${knight.attack}")
-    int attack;
+    @Value("${knight}")
+    int[] array;
+
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HistoryBean {
-    @Value("${history}")
-    String[] arr;
+//    @Value("${history}")
+//    String[] arr;
 }
